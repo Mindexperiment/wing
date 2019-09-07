@@ -15,7 +15,7 @@ class CreateWingsTable extends Migration
     {
         Schema::create('wings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->morph('model');
+            $table->morphs('model');
             $table->json('metadata');
         });
     }
