@@ -1,0 +1,51 @@
+{
+    "name": "agpretto/wing",
+    "description": "Put the wings to your eloquent models",
+    "keywords": [
+        "wing",
+        "eloquent",
+        "model",
+        "metadata",
+        "json"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/Mindexperiment/wing",
+    "support": {
+        "issues": "https://github.com/Mindexperiment/wing/issues",
+        "source": "https://github.com/Mindexperiment/wing"
+    },
+    "authors": [
+        {
+            "name": "Andrea Giuseppe Pretto",
+            "email": "info@andreagiuseppe.com",
+            "homepage": "https://andreagiuseppe.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^7.5|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Agpretto\\Wing\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Agpretto\\Wing\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Agpretto\\Wing\\WingServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
