@@ -24,6 +24,6 @@ trait HasWing
      */
     public function metadata()
     {
-        return $this->wing()->metadata;
+        return $this->wing->metadata;
     }
 }
