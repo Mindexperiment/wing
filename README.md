@@ -43,7 +43,11 @@ class Article extends Model
 
 ## Usage
 
-After you install the package you can use the power of metadata in your models. Let's assume we want to extends our `Article` instance with specific SEO metadata values.
+After you install the package you can use the power of metadata in your models.
+
+### Creation
+
+Let's assume we want to extends our `Article` instance with specific SEO metadata values.
 
 ```php
 
@@ -57,6 +61,8 @@ $data = [
 $article->wing()->create([ 'metadata' => $data ]);
 
 // or use the shortcut
+// this method internally call updateOrCreate()
+// if a wing is found all metadata is replaced with the new data
 $article->addWing($data);
 
 ```
