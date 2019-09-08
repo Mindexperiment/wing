@@ -8,6 +8,19 @@ namespace Agpretto\Wing;
 trait HasWing
 {
     /**
+     * Add data to a wing relation
+     * 
+     * @param mixed $data
+     * @return $this
+     */
+    public function addWing($data)
+    {
+        $this->wing()->updateOrCreate([ 'metadata' => $data ]);
+
+        return $this->refresh();
+    }
+
+    /**
      * Get the model wing relation
      * 
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
