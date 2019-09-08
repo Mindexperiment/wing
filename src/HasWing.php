@@ -34,6 +34,10 @@ trait HasWing
      */
     public function hasMetadata($key)
     {
-        return array_key_exists($key, $this->metadata());
+        if (is_string($value = $this->metadata())) {
+            return false;
+        }
+
+        return array_key_exists($key, $value);
     }
 }
