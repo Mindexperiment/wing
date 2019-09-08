@@ -26,4 +26,14 @@ trait HasWing
     {
         return $this->wing->metadata;
     }
+
+    /**
+     * Check if exists a metadata key
+     * 
+     * @return bool
+     */
+    public function hasMetadata($key)
+    {
+        return array_key_exists($key, $this->metadata());
+    }
 }
