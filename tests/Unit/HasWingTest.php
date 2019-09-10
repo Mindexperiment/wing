@@ -13,5 +13,10 @@ class HasWingTest extends TestCase
         $puppet = new Puppet();
 
         $this->assertNull($puppet->wing);
+
+        $data = 'foo';
+        $puppet->addWing($data);
+
+        $this->assertSame('foo', $puppet->metadata());
     }
 }
