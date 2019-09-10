@@ -12,6 +12,6 @@ class HasWingTest extends TestCase
     {
         $puppet = new Puppet();
 
-        $this->assertInstanceOf(Wing::class, $puppet->wing);
+        $this->assertNull($puppet->wing);
     }
 }

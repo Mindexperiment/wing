@@ -17,7 +17,7 @@ trait HasWing
     {
         $this->wing()->updateOrCreate([ 'metadata' => $data ]);
 
-        return $this->refresh();
+        return $this;
     }
 
     /**
