@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Agpretto\Wing\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Agpretto\Tests\Fixtures;
+namespace Agpretto\Wing\Tests\Fixtures;
 
 use Illuminate\Database\Eloquent\Model;
 use Agpretto\Wing\HasWing;

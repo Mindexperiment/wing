@@ -1,10 +1,10 @@
 <?php
 
-namespace Agpretto\Tests\Unit;
+namespace Agpretto\Wing\Tests\Unit;
 
-use Agpretto\Tests\TestCase;
+use Agpretto\Wing\Tests\TestCase;
 use Agpretto\Wing\Wing;
-use Agpretto\Tests\Fixtures\Puppet;
+use Agpretto\Wing\Tests\Fixtures\Puppet;
 
 class HasWingTest extends TestCase
 {
