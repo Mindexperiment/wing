@@ -15,7 +15,7 @@ trait HasWing
      */
     public function addWing($data)
     {
-        $this->wing()->updateOrCreate([ 'metadata' => $data ]);
+        $this->wing()->create([ 'metadata' => $data ]);
 
         return $this;
     }
@@ -33,11 +33,11 @@ trait HasWing
     /**
      * Get the model metadata
      * 
-     * @return stdObject
+     * @return null | stdObject
      */
     public function metadata()
     {
-        return $this->wing->metadata;
+        return $this->wing()->exists() ? $this->wing->metadata : null;
     }
 
     /**
@@ -47,7 +47,7 @@ trait HasWing
      */
     public function hasMetadata($key)
     {
-        if (is_string($value = $this->metadata())) {
+        if (!$this->wing()->exists() || is_string($value = $this->metadata())) {
             return false;
         }
 

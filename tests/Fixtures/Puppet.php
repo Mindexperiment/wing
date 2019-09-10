@@ -8,4 +8,6 @@ use Agpretto\Wing\HasWing;
 class Puppet extends Model
 {
     use HasWing;
+
+    protected $table = 'users';
 }
