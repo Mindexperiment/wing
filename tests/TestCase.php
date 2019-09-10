@@ -11,7 +11,7 @@ abstract class TestCase extends OrchestraTestCase
         return ['Agpretto\Wing\WingServiceProvider'];
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
