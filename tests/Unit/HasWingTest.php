@@ -81,4 +81,17 @@ class HasWingTest extends TestCase
         $puppet->addWing('bar');
         $this->assertSame('foo', $puppet->metadata());
     }
+
+    public function test_UpdateValue()
+    {
+        $data = [ 'foo'=>'bar', 'bar'=>'baz', 'min'=>'max' ];
+        $puppet = $this->createPuppet();
+        $puppet->addWing($data);
+
+        $this->assertSame('bar', $puppet->metadata()->foo);
+
+        $puppet = $puppet->updateWing('foo', 'bong');
+
+        $this->assertSame('bong', $puppet->metadata()->foo);
+    }
 }

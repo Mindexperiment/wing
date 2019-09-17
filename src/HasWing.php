@@ -21,6 +21,40 @@ trait HasWing
     }
 
     /**
+     * Update data inside a wing
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @return $this
+     */
+    public function updateWing($key, $value)
+    {
+        $wing = $this->wing()->first();
+        $wing->metadata = [ $key => $value ];
+        $wing->save();
+
+        return $this->refresh();
+    }
+
+    /**
+     * Update part of data inside a wing
+     * 
+     * @param string $path
+     * @param mixed $value
+     * @return $this
+     */
+    public function updatePartOfWing($path, $value)
+    {
+        $key = "metadata->{$path}";
+        $data = [];
+        $data[$key] = $value;
+
+        $wing = $this->wing()->first()->update($data);
+
+        return $this->refresh();
+    }
+
+    /**
      * Get the model wing relation
      * 
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
