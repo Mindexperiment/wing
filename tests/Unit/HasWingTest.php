@@ -70,4 +70,15 @@ class HasWingTest extends TestCase
         $this->assertSame('baz', $puppet->metadata()->foo->bar);
         $this->assertSame('only', $puppet->metadata()->{'a-strange-key'}[0]);
     }
+
+    public function test_StringReplaced()
+    {
+        $puppet = $this->createPuppet();
+        $puppet->addWing('foo');
+
+        $this->assertSame('foo', $puppet->metadata());
+
+        $puppet->addWing('bar');
+        $this->assertSame('foo', $puppet->metadata());
+    }
 }
