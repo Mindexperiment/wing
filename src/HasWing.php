@@ -33,7 +33,7 @@ trait HasWing
         $wing->metadata = [ $key => $value ];
         $wing->save();
 
-        return $this->refresh();
+        return $this;
     }
 
     /**
@@ -49,9 +49,9 @@ trait HasWing
         $data = [];
         $data[$key] = $value;
 
-        $wing = $this->wing()->first()->update($data);
+        $this->wing()->first()->update($data);
 
-        return $this->refresh();
+        return $this;
     }
 
     /**

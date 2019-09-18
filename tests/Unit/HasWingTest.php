@@ -82,7 +82,7 @@ class HasWingTest extends TestCase
         $this->assertSame('foo', $puppet->metadata());
     }
 
-    public function test_UpdateValue()
+    public function test_UpdateData()
     {
         $data = [ 'foo'=>'bar', 'bar'=>'baz', 'min'=>'max' ];
         $puppet = $this->createPuppet();
@@ -92,6 +92,29 @@ class HasWingTest extends TestCase
 
         $puppet = $puppet->updateWing('foo', 'bong');
 
+        // needs to refresh the model to load the new data
+        $puppet->refresh();
+
         $this->assertSame('bong', $puppet->metadata()->foo);
+    }
+
+    public function test_UpdateComplexData()
+    {
+        $data = [
+            'foo' => [ 'foo' => 'bar', 'bar' => 'baz' ],
+            'bar' => 'baz',
+            'a-strange-key' => [ 'only', 'value' ]
+        ];
+        $puppet = $this->createPuppet();
+        $puppet->addWing($data);
+
+        $this->assertSame('bar', $puppet->metadata()->foo->foo);
+
+        $puppet = $puppet->updatePartOfWing('foo->foo', 'bong');
+
+        // needs to refresh the model to load the new data
+        $puppet->refresh();
+
+        $this->assertSame('bong', $puppet->metadata()->foo->foo);
     }
 }
