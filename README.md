@@ -43,26 +43,171 @@ class Article extends Model
 
 ## Usage
 
-After you install the package you can use the power of metadata in your models.
-
-### Creation
-
-Let's assume we want to extends our `Article` instance with specific SEO metadata values.
+After you install the package you can use the power of Wing for your models. We use an instance of an article model entity to expose the method of this package.
 
 ```php
 
+// - grab an article
+
 $article = Article::findOrFail(1);
 
-$data = [
-    'seo_title' => 'My SEO title',
-    'seo_description' => 'My SEO description',
-    'seo_canonical' => 'https://canonical/link'
-];
-$article->wing()->create([ 'metadata' => $data ]);
+```
 
-// or use the shortcut
-// this method internally call updateOrCreate()
-// if a wing is found all metadata is replaced with the new data
-$article->addWing($data);
+### Simple data
+
+Let's assume we want to extends our `Article` instance with a new wing simple data value.
+
+```php
+
+// add one simple value
+
+$article->addWing('foo'); // extend the model with a wing
+
+// get the value back
+
+$value = $article->metadata(); // foo
 
 ```
+
+### Structured data
+
+Let's now assume we want to extends our `Article` instance with a structured data value.
+
+```php
+
+// structured data
+$data = [
+    'foo' => 'bar',
+    'bar' => 'baz',
+    'min' => 'max',
+];
+$article->addWing($data); // extend the model with a wing
+
+// get the values back
+
+$data = $article->metadata(); // stdClass
+$data->foo; // bar
+$data->bar; // baz
+$data->min; // max
+
+// directly access the data
+
+$article->metadata()->foo; // bar
+$article->metadata()->bar; // baz
+$article->metadata()->min; // max
+
+```
+
+### Complex structured data
+
+Please use the complex structure with caution!
+
+Let's now assume we want to extends our `Article` instance with a complex structure of data.
+
+```php
+
+// structured data
+$data = [
+    'foo' => [ 'foo' => 'bar', 'bar' => 'baz' ],
+    'bar' => 'baz',
+    'a-strange-key' => [ 'only', 'value' ]
+];
+$article->addWing($data); // extend the model with a wing
+
+// again, we can get the values back
+
+$data = $article->metadata(); // stdClass
+$data->foo; // stdClass
+$data->foo->foo; // bar
+$data->bar; // baz
+$data->{'a-strange-key'}; // stdClass
+$data->{'a-strange-key'}[0]; // only
+
+// directly access the data
+
+$article->metadata()->foo; // stdClass
+$article->metadata()->foo->foo; // bar
+$article->metadata()->bar; // baz
+$article->metadata()->{'a-strange-key'}; // stdClass
+$article->metadata()->{'a-strange-key'}[0]; // only
+
+```
+
+### Check data
+
+You can check if a data exists inside your structured data by using the method `hasMetdata`.
+
+```php
+
+// structured data
+$data = [
+    'foo' => 'bar',
+    'bar' => 'baz',
+    'min' => 'max',
+];
+$article->addWing($data); // extend the model with a wing
+
+$article->hasMetadata('foo'); // true
+$article->hasMetadata('max'); // false
+
+```
+
+### Update data inside a wing
+
+Because wing use json data field to store your model structured data inside the database you can use the json notation to update data for the wing relation.
+
+You can find tons of example on how to [work with json data type](https://lmgtfy.com/?q=laravel+json+data+type).
+
+This package provide you 2 simplified methods to update the data of your wing.
+
+#### Update simple structured data
+
+Use the `updateData` method to update a simple structure.
+
+```php
+
+// structured data
+$data = [
+    'foo' => 'bar',
+    'bar' => 'baz',
+    'min' => 'max',
+];
+$article->addWing($data); // extend the model with a wing
+
+$article->metadata()->foo; // bar
+
+// update wing data
+$article->updateWing('foo', 'bong');
+$article->refresh(); // reload model relations
+
+$article->metadata()->foo; // bong
+
+```
+
+#### Update part of complex data structure
+
+Use the `updatePartOfWing` to go through your data and update a part of them.
+
+This method simplify the access to the data structure.
+
+```php
+
+// structured data
+$data = [
+    'foo' => [ 'foo' => 'bar', 'bar' => 'baz' ],
+    'bar' => 'baz',
+    'a-strange-key' => [ 'only', 'value' ]
+];
+$article->addWing($data); // extend the model with a wing
+
+//update data using a path
+$article->updatePartOfWing('foo->foo', 'bong');
+$article->refresh(); // reload model relations
+
+$article->metadata()->foo->foo; // bong
+
+```
+
+### Credits
+
+This package is built for you by the Interstellar Developer [Andrea Giuseppe](https://andreagiuseppe.com) - [Github](https://github.com/Mindexperiment)
